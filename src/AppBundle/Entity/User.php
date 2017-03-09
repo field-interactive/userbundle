@@ -89,11 +89,27 @@ class User implements AdvancedUserInterface
      */
     private $credentialsExpireAt;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated", type="datetime")
+     */
+    private $updated;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
     public function __construct()
     {
         $this->enabled = false;
         $this->locked = false;
         $this->roles = array();
+        $this->updated = new \DateTime();
+        $this->created = new \DateTime();
     }
 
     /**
@@ -392,6 +408,38 @@ class User implements AdvancedUserInterface
         }
 
         return true;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * @param \DateTime $updated
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param \DateTime $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
     }
 
     /**
