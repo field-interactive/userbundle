@@ -13,11 +13,11 @@
 - name: Composer install
   shell: cd /vagrant && composer install
 
-#- name: Doctrine Migrations
-#  shell: cd /vagrant && php bin/console d:m:m -n
-#
-#- name: Doctrine Fixtures Load
-#  shell: cd /vagrant && php bin/console d:f:l -n
+- name: Doctrine Migrations
+  shell: cd /vagrant && php bin/console d:m:m -n
+
+- name: Doctrine Fixtures Load
+  shell: cd /vagrant && php bin/console d:f:l -n
 
 - name: Clear cache
   shell: rm -rf /vagrant/var/cache/prod /vagrant/var/cache/dev
