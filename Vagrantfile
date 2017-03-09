@@ -15,10 +15,10 @@ end
 Vagrant.configure("2") do |config|
 
     config.vm.provider :virtualbox do |v|
-        v.name = "userbundle"
+        v.name = "user-bundle"
         v.customize [
             "modifyvm", :id,
-            "--name", "userbundle",
+            "--name", "user-bundle",
             "--memory", 4096,
             "--natdnshostresolver1", "on",
             "--cableconnected1", "on",
@@ -47,11 +47,11 @@ Vagrant.configure("2") do |config|
             ansible.limit = 'all'
             ansible.extra_vars = {
                 private_interface: "192.168.56.128",
-                hostname: "userbundle"
+                hostname: "user-bundle"
             }
         end
     else
-        config.vm.provision :shell, path: "ansible/bootstrap.sh", args: ["userbundle"]
+        config.vm.provision :shell, path: "ansible/bootstrap.sh", args: ["user-bundle"]
     end
 
     if Vagrant.has_plugin?("vagrant-cachier")

@@ -1,5 +1,5 @@
 {
-    "name": "svenkrefeld/userbundle",
+    "name": "svenkrefeld/user-bundle",
     "license": "proprietary",
     "type": "project",
     "autoload": {
