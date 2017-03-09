@@ -30,10 +30,9 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $user->setName('Sven Krefeld');
         $user->setRoles(array('ROLE_USER', 'ROLE_ADMIN'));
         $user->setEnabled(true);
-        $user->setLocked(false);
         $user->setLastLogin(new \DateTime());
-        $user->setExpiresAt(new \DateTime('2020-01-01'));
-        $user->setCredentialsExpiresAt(new \DateTime('2020-01-01'));
+        $user->setExpiresAt((new \DateTime())->modify('+5 years'));
+        $user->setCredentialsExpireAt((new \DateTime())->modify('+1 year'));
 
         $manager->persist($user);
         $manager->flush();

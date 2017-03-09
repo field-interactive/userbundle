@@ -13,6 +13,8 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  */
 class User implements AdvancedUserInterface
 {
+    const ROLE_DEFAULT = 'ROLE_USER';
+
     /**
      * @var int
      *
@@ -81,10 +83,16 @@ class User implements AdvancedUserInterface
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="credentialsExpiresAt", type="datetime")
+     * @ORM\Column(name="credentialsExpireAt", type="datetime")
      */
-    private $credentialsExpiresAt;
+    private $credentialsExpireAt;
 
+    public function __construct()
+    {
+        $this->enabled = false;
+        $this->locked = false;
+        $this->roles = array();
+    }
 
     /**
      * Get id
@@ -209,6 +217,20 @@ class User implements AdvancedUserInterface
         return array_unique($roles);
     }
 
+    public function addRole($role)
+    {
+        $role = strtoupper($role);
+        if ($role === static::ROLE_DEFAULT) {
+            return $this;
+        }
+
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
     /**
      * Set enabled
      *
@@ -221,16 +243,6 @@ class User implements AdvancedUserInterface
         $this->enabled = $enabled;
 
         return $this;
-    }
-
-    /**
-     * Get enabled
-     *
-     * @return bool
-     */
-    public function getEnabled()
-    {
-        return $this->enabled;
     }
 
     /**
@@ -263,16 +275,6 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Get locked
-     *
-     * @return bool
-     */
-    public function getLocked()
-    {
-        return $this->locked;
-    }
-
-    /**
      * Checks whether the user is locked.
      *
      * Internally, if this method returns false, the authentication system
@@ -284,7 +286,7 @@ class User implements AdvancedUserInterface
      */
     public function isAccountNonLocked()
     {
-        return $this->locked;
+        return !$this->locked;
     }
 
     /**
@@ -347,31 +349,35 @@ class User implements AdvancedUserInterface
      */
     public function isAccountNonExpired()
     {
-        // TODO: Implement isAccountNonExpired() method.
+        if (null !== $this->expiresAt && $this->expiresAt->getTimestamp() < time()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
-     * Set credentialsExpiresAt
+     * Set credentialsExpireAt
      *
-     * @param \DateTime $credentialsExpiresAt
+     * @param \DateTime $credentialsExpireAt
      *
      * @return User
      */
-    public function setCredentialsExpiresAt($credentialsExpiresAt)
+    public function setCredentialsExpireAt($credentialsExpireAt)
     {
-        $this->credentialsExpiresAt = $credentialsExpiresAt;
+        $this->credentialsExpireAt = $credentialsExpireAt;
 
         return $this;
     }
 
     /**
-     * Get credentialsExpiresAt
+     * Get credentialsExpireAt
      *
      * @return \DateTime
      */
-    public function getCredentialsExpiresAt()
+    public function getCredentialsExpireAt()
     {
-        return $this->credentialsExpiresAt;
+        return $this->credentialsExpireAt;
     }
 
     /**
@@ -386,7 +392,11 @@ class User implements AdvancedUserInterface
      */
     public function isCredentialsNonExpired()
     {
-        // TODO: Implement isCredentialsNonExpired() method.
+        if (null !== $this->credentialsExpireAt && $this->credentialsExpireAt->getTimestamp() < time()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
