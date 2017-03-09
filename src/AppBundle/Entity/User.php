@@ -4,12 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @UniqueEntity("email")
  */
 class User implements AdvancedUserInterface
 {
@@ -69,21 +71,21 @@ class User implements AdvancedUserInterface
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lastLogin", type="datetime")
+     * @ORM\Column(name="lastLogin", type="datetime", nullable=true)
      */
     private $lastLogin;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="expiresAt", type="datetime")
+     * @ORM\Column(name="expiresAt", type="datetime", nullable=true)
      */
     private $expiresAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="credentialsExpireAt", type="datetime")
+     * @ORM\Column(name="credentialsExpireAt", type="datetime", nullable=true)
      */
     private $credentialsExpireAt;
 
@@ -187,15 +189,22 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Set roles
+     * Add role
      *
-     * @param array $roles
+     * @param string $role
      *
      * @return User
      */
-    public function setRoles($roles)
+    public function addRole($role)
     {
-        $this->roles = $roles;
+        $role = strtoupper($role);
+        if ($role === static::ROLE_DEFAULT) {
+            return $this;
+        }
+
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
 
         return $this;
     }
@@ -215,20 +224,6 @@ class User implements AdvancedUserInterface
         }
 
         return array_unique($roles);
-    }
-
-    public function addRole($role)
-    {
-        $role = strtoupper($role);
-        if ($role === static::ROLE_DEFAULT) {
-            return $this;
-        }
-
-        if (!in_array($role, $this->roles, true)) {
-            $this->roles[] = $role;
-        }
-
-        return $this;
     }
 
     /**
@@ -296,7 +291,7 @@ class User implements AdvancedUserInterface
      *
      * @return User
      */
-    public function setLastLogin($lastLogin)
+    public function setLastLogin(\DateTime $lastLogin = null)
     {
         $this->lastLogin = $lastLogin;
 
@@ -320,7 +315,7 @@ class User implements AdvancedUserInterface
      *
      * @return User
      */
-    public function setExpiresAt($expiresAt)
+    public function setExpiresAt(\DateTime $expiresAt = null)
     {
         $this->expiresAt = $expiresAt;
 
@@ -363,7 +358,7 @@ class User implements AdvancedUserInterface
      *
      * @return User
      */
-    public function setCredentialsExpireAt($credentialsExpireAt)
+    public function setCredentialsExpireAt(\DateTime $credentialsExpireAt = null)
     {
         $this->credentialsExpireAt = $credentialsExpireAt;
 
@@ -400,10 +395,6 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Stubs from Interface
-     */
-
-    /**
      * Returns the salt that was originally used to encode the password.
      *
      * This can return null if the password was not encoded using a salt.
@@ -423,6 +414,11 @@ class User implements AdvancedUserInterface
      */
     public function eraseCredentials()
     {
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }
 

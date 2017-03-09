@@ -28,11 +28,8 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $password = $encoder->encodePassword($user, 'myboom');
         $user->setPassword($password);
         $user->setName('Sven Krefeld');
-        $user->setRoles(array('ROLE_USER', 'ROLE_ADMIN'));
+        $user->addRole('ROLE_ADMIN');
         $user->setEnabled(true);
-        $user->setLastLogin(new \DateTime());
-        $user->setExpiresAt((new \DateTime())->modify('+5 years'));
-        $user->setCredentialsExpireAt((new \DateTime())->modify('+1 year'));
 
         $manager->persist($user);
         $manager->flush();
