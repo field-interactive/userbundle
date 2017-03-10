@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Event\UserEvent;
-use AppBundle\Form\UserType;
+use AppBundle\Form\RegisterType;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,9 +14,6 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
 
 /**
- * Class RegistrationController
- * @package AppBundle\Controller
- *
  * @Route("/register")
  */
 class RegistrationController extends Controller
@@ -27,7 +24,7 @@ class RegistrationController extends Controller
     public function registerAction(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(RegisterType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -46,7 +43,7 @@ class RegistrationController extends Controller
 
             $this->addFlash(
                 'success',
-                'An email has been sent to '.$user->getEmail().'. It contains an activation link you must click to activate your account.'
+                'The user has been created successfully. An email has been sent to '.$user->getEmail().'. It contains an activation link you must click to activate your account.'
             );
 
             return $this->redirectToRoute('default');
@@ -91,11 +88,9 @@ class RegistrationController extends Controller
         $em->persist($user);
         $em->flush();
 
-
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
         $this->get('security.token_storage')->setToken($token);
         $this->get('session')->set('_security_main', serialize($token));
-
 
         $this->addFlash(
             'success',
