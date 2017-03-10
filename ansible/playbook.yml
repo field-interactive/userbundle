@@ -7,6 +7,6 @@
     - apache-fpm
     - mysql
     - composer
+    - dotfiles
     - mailhog
     - app
-
