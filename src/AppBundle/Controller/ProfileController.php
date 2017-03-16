@@ -67,4 +67,44 @@ class ProfileController extends Controller
             array('form' => $form->createView())
         );
     }
+
+    /**
+     * Change the password
+     *
+     * @Route("/change-password", name="profile_change_password")
+     */
+    public function changePasswordAction(Request $request)
+    {
+        $user = $this->getUser();
+        if (!is_object($user) || !$user instanceof User) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
+        $form = $this->createForm('AppBundle\Form\ChangePasswordType');
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $password = $this->get('security.password_encoder')
+                ->encodePassword($user, $form->getData()->getNewPassword());
+            $user->setPassword($password);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Your password has been changed'
+            );
+
+            return $this->redirectToRoute('profile_show');
+        }
+
+        return $this->render(
+            'profile/changePassword.html.twig',
+            array('form' => $form->createView())
+        );
+    }
 }
