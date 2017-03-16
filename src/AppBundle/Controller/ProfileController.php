@@ -164,4 +164,49 @@ class ProfileController extends Controller
             array('form' => $form->createView())
         );
     }
+
+    /**
+     * Deletes/Anonymize the personal data
+     *
+     * @Route("/delete", name="profile_delete")
+     */
+    public function deleteAction(Request $request)
+    {
+        $user = $this->getUser();
+        if (!is_object($user) || !$user instanceof User) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
+        $form = $this->createForm(PasswordConfirmType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+
+            $session = $request->getSession();
+
+            $user->setName('anonymous');
+            $user->setEmail('anonymous@anonymous-'.md5($user->getEmail()).'.com');
+            $user->setLocked(true);
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->get('security.token_storage')->setToken(null);
+            $session->invalidate();
+
+            $this->addFlash(
+                'success',
+                'Your personal data are deleted'
+            );
+
+            return $this->redirectToRoute('default');
+        }
+
+        return $this->render(
+            'profile/delete.html.twig',
+            array('form' => $form->createView())
+        );
+    }
 }
