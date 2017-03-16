@@ -3,10 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Form\PasswordConfirmType;
 use AppBundle\Form\ProfileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -51,6 +53,18 @@ class ProfileController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            $uow = $em->getUnitOfWork();
+            $uow->computeChangeSets();
+            $updatedFields = $uow->getEntityChangeSet($user);
+
+            if (array_key_exists('email', $updatedFields)) {
+
+                $session = $request->getSession();
+                $session->set('updatedFields', $updatedFields);
+
+                return $this->redirectToRoute('profile_confirm_edit');
+            }
+
             $em->persist($user);
             $em->flush();
 
@@ -64,6 +78,49 @@ class ProfileController extends Controller
 
         return $this->render(
             'profile/edit.html.twig',
+            array('form' => $form->createView())
+        );
+    }
+
+    /**
+     * @Route("/edit/confirm", name="profile_confirm_edit")
+     */
+    public function confirmEditAction(Request $request)
+    {
+        $user = $this->getUser();
+        if (!is_object($user) || !$user instanceof User) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
+        $form = $this->createForm(PasswordConfirmType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+
+            $session = $request->getSession();
+            $updatedFields = $session->get('updatedFields');
+
+            $user->setEmail($updatedFields['email'][1]);
+
+            $em->persist($user);
+            $em->flush();
+
+            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
+
+            $this->addFlash(
+                'success',
+                'The profile has been updated'
+            );
+
+            return $this->redirectToRoute('profile_show');
+        }
+
+        return $this->render(
+            'profile/confirm_edit.html.twig',
             array('form' => $form->createView())
         );
     }
