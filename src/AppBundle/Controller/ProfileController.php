@@ -49,9 +49,6 @@ class ProfileController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            var_dump($form->getData());exit;
-
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($user);
@@ -61,6 +58,7 @@ class ProfileController extends Controller
                 'success',
                 'The profile has been updated'
             );
+
             return $this->redirectToRoute('profile_show');
         }
 
