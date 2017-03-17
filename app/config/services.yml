@@ -22,6 +22,13 @@ services:
             tags:
                 - { name: kernel.event_listener, event: user.updated, method: onUserUpdated }
 
+    user.login:
+            class: AppBundle\EventListener\UserLoginListener
+            arguments:
+                - "@doctrine.orm.entity_manager"
+            tags:
+                - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
+
     user.resetting.password:
             class: AppBundle\EventListener\ResetPasswordListener
             arguments:
