@@ -15,13 +15,13 @@ class ChangePasswordType extends AbstractType
     {
         $builder
             ->add('oldPassword', PasswordType::class, array(
-                'label' => 'Current Password',
+                'label' => 'Current password',
             ))
             ->add('newPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
-                'first_options'  => array('label' => 'New Password' ),
-                'second_options' => array('label' => 'Repeat Password'),
+                'first_options'  => array('label' => 'New password' ),
+                'second_options' => array('label' => 'Repeat new password'),
             ))
         ;
     }
