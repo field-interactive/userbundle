@@ -7,7 +7,11 @@
     {{ form_end(form) }}
     <ul>
         <li><a href="{{ path('admin_reset_password', {'id': user.id}) }}">Reset Password</a></li>
-        <li><a href="{{ path('admin_user_deactivate', {'id': user.id}) }}">Deactivate User</a></li>
+        {% if user.accountNonLocked %}
+            <li><a href="{{ path('admin_user_deactivate', {'id': user.id}) }}">Deactivate User</a></li>
+        {% else %}
+            <li><a href="{{ path('admin_user_activate', {'id': user.id}) }}">Activate User</a></li>
+        {% endif %}
         <li><a href="{{ path('admin_user_delete', {'id': user.id}) }}">Delete Personal Data</a></li>
         <li><a href="{{ path('admin_user_show', {'id': user.id}) }}">Back</a></li>
     </ul>
