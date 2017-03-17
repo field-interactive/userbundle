@@ -15,8 +15,10 @@
         <input type="checkbox" id="remember_me" name="_remember_me" checked />
         <label for="remember_me">Keep me logged in</label>
 
-        <button type="submit">Login</button>
+        <input type="submit" value="Login" />
     </form>
-    <a href="{{ path('registration_register') }}">Sign up</a>
-    <a href="{{ path('resetting_password_request') }}">Forgot password?</a>
+    <ul>
+        <li><a href="{{ path('registration_register') }}">Sign up</a></li>
+        <li><a href="{{ path('resetting_password_request') }}">Forgot password?</a></li>
+    </ul>
 {% endblock %}

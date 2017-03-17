@@ -38,3 +38,6 @@ security:
                 secret:   '%secret%'
                 lifetime: 604800
                 path:     /profile
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
