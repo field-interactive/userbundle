@@ -125,7 +125,7 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes/Anonymize the personal data
+     * Deletes/Anonymize the user data
      *
      * @Route("{id}/delete", name="admin_user_delete")
      */
@@ -136,7 +136,7 @@ class UserController extends Controller
         $user = $em->getRepository('AppBundle:User')->find($id);
 
         $user->setName('anonymous');
-        $user->setEmail('anonymous@anonymous-'.md5($user->getEmail()).'.com');
+        $user->setEmail('anonymous@anonymous-'.md5($user->getEmail().random_bytes(10)).'.com');
         $user->setLocked(true);
 
         $em->persist($user);
@@ -148,7 +148,7 @@ class UserController extends Controller
 
         $this->addFlash(
             'success',
-            'The personal data are deleted'
+            'The user data are deleted'
         );
 
         return $this->redirectToRoute('admin_user_index');
