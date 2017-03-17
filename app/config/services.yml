@@ -14,3 +14,14 @@ services:
                 - "%secret%"
             tags:
                 - { name: kernel.event_listener, event: user.registration.completed, method: onRegistrationCompleted }
+    user.resetting.password:
+            class: AppBundle\EventListener\ResetPasswordListener
+            arguments:
+                - "@mailer"
+                - "@router"
+                - "@templating"
+                - "%contact_email%"
+                - "%contact_email_name%"
+                - "%secret%"
+            tags:
+                - { name: kernel.event_listener, event: user.resetting.password, method: onResettingPassword }

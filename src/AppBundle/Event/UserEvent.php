@@ -16,6 +16,7 @@ class UserEvent extends Event
      * @Event("AppBundle\Event\UserEvent")
      */
     const REGISTRATION_COMPLETED = 'user.registration.completed';
+    const RESETTING_PASSWORD = 'user.resetting.password';
 
     /**
      * @var null|Request
