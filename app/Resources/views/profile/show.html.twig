@@ -5,5 +5,8 @@
     <p>Your profile:</p>
     <p>Name: {{ user.name }}</p>
     <p>Email: {{ user.email }}</p>
-    <a href="{{ path('profile_edit') }}">Edit</a>
+    <ul>
+        <li><a href="{{ path('profile_edit') }}">Edit</a></li>
+        <li><a href="{{ path('logout') }}">Log out</a></li>
+    </ul>
 {% endblock %}

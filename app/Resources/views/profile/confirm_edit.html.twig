@@ -6,4 +6,7 @@
     {{ form_widget(form) }}
     <input type="submit" value="Delete data" />
     {{ form_end(form) }}
+    <ul>
+        <li><a href="{{ path('profile_edit') }}">Back</a></li>
+    </ul>
 {% endblock %}
