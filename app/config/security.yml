@@ -32,8 +32,9 @@ security:
             form_login:
                 login_path: login
                 check_path: login
+                default_target_path: /profile
             logout: true
             remember_me:
                 secret:   '%secret%'
                 lifetime: 604800
-                path:     /
+                path:     /profile
