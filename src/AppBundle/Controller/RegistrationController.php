@@ -43,7 +43,7 @@ class RegistrationController extends Controller
 
             $this->addFlash(
                 'success',
-                'The user has been created successfully. An email has been sent to '.$user->getEmail().'. It contains an activation link you must click to activate your account.'
+                'An email has been sent to '.$user->getEmail().'. It contains an activation link you must click to activate your account.'
             );
 
             return $this->redirectToRoute('default');
