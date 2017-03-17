@@ -49,7 +49,7 @@ class ResettingController extends Controller
 
                 $em = $this->getDoctrine()->getManager();
 
-                $user->setCredentialsExpireAt(new \DateTime('+24 hours'));
+                $user->setPasswordRequestedAt(new \DateTime('+24 hours'));
 
                 $em->persist($user);
                 $em->flush();
@@ -88,9 +88,9 @@ class ResettingController extends Controller
 
         if (!is_object($user) || !$user instanceof User) {
             throw new NotFoundHttpException(sprintf('The user does not exist'));
-        } elseif (is_null($user->getCredentialsExpireAt())) {
+        } elseif (is_null($user->getPasswordRequestedAt())) {
             throw new BadRequestHttpException(sprintf('The password resetting was not requested'));
-        } elseif ($user->getCredentialsExpireAt() < new \DateTime()) {
+        } elseif ($user->getPasswordRequestedAt() < new \DateTime()) {
             throw new AccessDeniedHttpException(sprintf('The token is no longer available'));
         }
 
@@ -108,7 +108,7 @@ class ResettingController extends Controller
             $password = $this->get('security.password_encoder')
                 ->encodePassword($user, $form->getData()->getPassword());
             $user->setPassword($password);
-            $user->setCredentialsExpireAt(null);
+            $user->setPasswordRequestedAt(null);
 
             $em->persist($user);
             $em->flush();

@@ -98,6 +98,13 @@ class User implements AdvancedUserInterface
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="passwordRequestedAt", type="datetime", nullable=true)
+     */
+    private $passwordRequestedAt;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="updated", type="datetime")
      */
     private $updated;
@@ -410,6 +417,22 @@ class User implements AdvancedUserInterface
         }
 
         return true;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    /**
+     * @param \DateTime $passwordRequestedAt
+     */
+    public function setPasswordRequestedAt($passwordRequestedAt)
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
     }
 
     /**
