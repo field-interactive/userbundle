@@ -9,12 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 class UserEvent extends Event
 {
     /**
-     * The REGISTRATION_COMPLETED event occurs after saving the user in the registration process.
-     *
      * This event allows you to access the response which will be sent.
      *
      * @Event("AppBundle\Event\UserEvent")
      */
+
+    const USER_UPDATED = 'user.updated';
     const REGISTRATION_COMPLETED = 'user.registration.completed';
     const RESETTING_PASSWORD = 'user.resetting.password';
     const ADMIN_RESETTING_PASSWORD = 'admin.resetting.password';

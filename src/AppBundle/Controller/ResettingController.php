@@ -54,6 +54,10 @@ class ResettingController extends Controller
                 $em->persist($user);
                 $em->flush();
 
+                $userUpdatedEvent = new UserEvent($user, $request);
+
+                $this->get('event_dispatcher')->dispatch(UserEvent::USER_UPDATED, $userUpdatedEvent);
+
                 $resettingPasswordEvent = new UserEvent($user, $request);
 
                 $this->get('event_dispatcher')->dispatch(UserEvent::RESETTING_PASSWORD, $resettingPasswordEvent);
@@ -112,6 +116,10 @@ class ResettingController extends Controller
 
             $em->persist($user);
             $em->flush();
+
+            $userUpdatedEvent = new UserEvent($user, $request);
+
+            $this->get('event_dispatcher')->dispatch(UserEvent::USER_UPDATED, $userUpdatedEvent);
 
             $this->addFlash(
                 'success',

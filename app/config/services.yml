@@ -14,6 +14,14 @@ services:
                 - "%secret%"
             tags:
                 - { name: kernel.event_listener, event: user.registration.completed, method: onRegistrationCompleted }
+
+    user.updated:
+            class: AppBundle\EventListener\UserUpdatedListener
+            arguments:
+                - "@doctrine.orm.entity_manager"
+            tags:
+                - { name: kernel.event_listener, event: user.updated, method: onUserUpdated }
+
     user.resetting.password:
             class: AppBundle\EventListener\ResetPasswordListener
             arguments:
@@ -25,6 +33,7 @@ services:
                 - "%secret%"
             tags:
                 - { name: kernel.event_listener, event: user.resetting.password, method: onResettingPassword }
+
     admin.resetting.password:
                 class: AppBundle\EventListener\Admin\ResetPasswordListener
                 arguments:

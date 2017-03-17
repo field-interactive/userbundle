@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Event\UserEvent;
 use AppBundle\Form\PasswordConfirmType;
 use AppBundle\Form\ProfileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -68,6 +69,10 @@ class ProfileController extends Controller
             $em->persist($user);
             $em->flush();
 
+            $userUpdatedEvent = new UserEvent($user, $request);
+
+            $this->get('event_dispatcher')->dispatch(UserEvent::USER_UPDATED, $userUpdatedEvent);
+
             $this->addFlash(
                 'success',
                 'The profile has been updated'
@@ -111,6 +116,10 @@ class ProfileController extends Controller
             $this->get('security.token_storage')->setToken($token);
             $this->get('session')->set('_security_main', serialize($token));
 
+            $userUpdatedEvent = new UserEvent($user, $request);
+
+            $this->get('event_dispatcher')->dispatch(UserEvent::USER_UPDATED, $userUpdatedEvent);
+
             $this->addFlash(
                 'success',
                 'The profile has been updated'
@@ -150,6 +159,10 @@ class ProfileController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            $userUpdatedEvent = new UserEvent($user, $request);
+
+            $this->get('event_dispatcher')->dispatch(UserEvent::USER_UPDATED, $userUpdatedEvent);
 
             $this->addFlash(
                 'success',
@@ -192,6 +205,10 @@ class ProfileController extends Controller
 
             $em->persist($user);
             $em->flush();
+
+            $userUpdatedEvent = new UserEvent($user, $request);
+
+            $this->get('event_dispatcher')->dispatch(UserEvent::USER_UPDATED, $userUpdatedEvent);
 
             $this->get('security.token_storage')->setToken(null);
             $session->invalidate();

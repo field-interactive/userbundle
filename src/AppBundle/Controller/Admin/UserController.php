@@ -68,6 +68,10 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
+            $userUpdatedEvent = new UserEvent($user, $request);
+
+            $this->get('event_dispatcher')->dispatch(UserEvent::USER_UPDATED, $userUpdatedEvent);
+
             $this->addFlash(
                 'success',
                 'The user has been updated'
@@ -108,6 +112,9 @@ class UserController extends Controller
         $em->persist($user);
         $em->flush();
 
+        $userUpdatedEvent = new UserEvent($user, $request);
+
+        $this->get('event_dispatcher')->dispatch(UserEvent::USER_UPDATED, $userUpdatedEvent);
 
         $this->addFlash(
             'success',
@@ -122,7 +129,7 @@ class UserController extends Controller
      *
      * @Route("{id}/delete", name="admin_user_delete")
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -134,6 +141,10 @@ class UserController extends Controller
 
         $em->persist($user);
         $em->flush();
+
+        $userUpdatedEvent = new UserEvent($user, $request);
+
+        $this->get('event_dispatcher')->dispatch(UserEvent::USER_UPDATED, $userUpdatedEvent);
 
         $this->addFlash(
             'success',
@@ -148,7 +159,7 @@ class UserController extends Controller
      *
      * @Route("{id}/deactivate", name="admin_user_deactivate")
      */
-    public function deactivateAction($id)
+    public function deactivateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -157,6 +168,10 @@ class UserController extends Controller
 
         $em->persist($user);
         $em->flush();
+
+        $userUpdatedEvent = new UserEvent($user, $request);
+
+        $this->get('event_dispatcher')->dispatch(UserEvent::USER_UPDATED, $userUpdatedEvent);
 
         $this->addFlash(
             'success',
@@ -171,7 +186,7 @@ class UserController extends Controller
      *
      * @Route("{id}/activate", name="admin_user_activate")
      */
-    public function activateAction($id)
+    public function activateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -180,6 +195,10 @@ class UserController extends Controller
 
         $em->persist($user);
         $em->flush();
+
+        $userUpdatedEvent = new UserEvent($user, $request);
+
+        $this->get('event_dispatcher')->dispatch(UserEvent::USER_UPDATED, $userUpdatedEvent);
 
         $this->addFlash(
             'success',
