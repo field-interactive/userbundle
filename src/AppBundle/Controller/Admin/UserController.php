@@ -142,4 +142,27 @@ class UserController extends Controller
 
         return $this->redirectToRoute('admin_user_index');
     }
+
+    /**
+     * Deactivate the user
+     *
+     * @Route("{id}/deactivate", name="admin_user_deactivate")
+     */
+    public function deactivateAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('AppBundle:User')->find($id);
+        $user->setLocked(true);
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            'The user has been deactivated'
+        );
+
+        return $this->redirectToRoute('admin_user_edit', array('id' => $user->getId()));
+    }
 }
