@@ -25,3 +25,13 @@ services:
                 - "%secret%"
             tags:
                 - { name: kernel.event_listener, event: user.resetting.password, method: onResettingPassword }
+    admin.resetting.password:
+                class: AppBundle\EventListener\Admin\ResetPasswordListener
+                arguments:
+                    - "@mailer"
+                    - "@router"
+                    - "@templating"
+                    - "%contact_email%"
+                    - "%contact_email_name%"
+                tags:
+                    - { name: kernel.event_listener, event: admin.resetting.password, method: onResettingPassword }

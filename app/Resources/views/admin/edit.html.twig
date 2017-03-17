@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="Edit" />
+    {{ form_end(form) }}
+    <ul>
+        <li><a href="{{ path('admin_user_show', {'id': user.id}) }}">Back</a></li>
+        <li><a href="{{ path('admin_reset_password', {'id': user.id}) }}">Reset Password</a></li>
+        <li><a href="{{ path('admin_user_delete', {'id': user.id}) }}">Delete Personal Data</a></li>
+    </ul>
+{% endblock %}

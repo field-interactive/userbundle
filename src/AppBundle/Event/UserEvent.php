@@ -17,6 +17,7 @@ class UserEvent extends Event
      */
     const REGISTRATION_COMPLETED = 'user.registration.completed';
     const RESETTING_PASSWORD = 'user.resetting.password';
+    const ADMIN_RESETTING_PASSWORD = 'admin.resetting.password';
 
     /**
      * @var null|Request
