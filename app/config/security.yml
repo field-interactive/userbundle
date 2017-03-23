@@ -3,7 +3,7 @@
 security:
 
     encoders:
-        UserBundle\Entity\User:
+        Field\UserBundle\Entity\User:
             algorithm: bcrypt
             cost:      13
 
@@ -11,7 +11,7 @@ security:
     providers:
         db_provider:
             entity:
-                class: UserBundle:User
+                class: FieldUserBundle:User
                 property: email
         in_memory:
             memory: ~

@@ -1,5 +1,5 @@
 app:
-    resource: "@UserBundle/Controller/"
+    resource: "@FieldUserBundle/Controller/"
     type:     annotation
 logout:
     path: /logout
