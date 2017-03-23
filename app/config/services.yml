@@ -4,7 +4,7 @@ parameters:
 
 services:
     user.registration.completed:
-            class: AppBundle\EventListener\RegistrationListener
+            class: UserBundle\EventListener\RegistrationListener
             arguments:
                 - "@mailer"
                 - "@router"
@@ -16,21 +16,21 @@ services:
                 - { name: kernel.event_listener, event: user.registration.completed, method: onRegistrationCompleted }
 
     user.updated:
-            class: AppBundle\EventListener\UserUpdatedListener
+            class: UserBundle\EventListener\UserUpdatedListener
             arguments:
                 - "@doctrine.orm.entity_manager"
             tags:
                 - { name: kernel.event_listener, event: user.updated, method: onUserUpdated }
 
     user.login:
-            class: AppBundle\EventListener\UserLoginListener
+            class: UserBundle\EventListener\UserLoginListener
             arguments:
                 - "@doctrine.orm.entity_manager"
             tags:
                 - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
 
     user.resetting.password:
-            class: AppBundle\EventListener\ResetPasswordListener
+            class: UserBundle\EventListener\ResetPasswordListener
             arguments:
                 - "@mailer"
                 - "@router"
@@ -42,7 +42,7 @@ services:
                 - { name: kernel.event_listener, event: user.resetting.password, method: onResettingPassword }
 
     admin.resetting.password:
-                class: AppBundle\EventListener\Admin\ResetPasswordListener
+                class: UserBundle\EventListener\Admin\ResetPasswordListener
                 arguments:
                     - "@mailer"
                     - "@router"
