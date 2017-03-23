@@ -23,11 +23,11 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
         $user = new User();
-        $user->setEmail('sven.krefeld@myboom.de');
+        $user->setEmail('admin@field-user-bundle.com');
         $encoder = $this->container->get('security.password_encoder');
-        $password = $encoder->encodePassword($user, 'myboom');
+        $password = $encoder->encodePassword($user, 'password');
         $user->setPassword($password);
-        $user->setName('Sven Krefeld');
+        $user->setName('Admin');
         $user->addRole('ROLE_ADMIN');
         $user->setEnabled(true);
 

@@ -26,7 +26,7 @@ class UserController extends Controller
 
         $users = $em->getRepository('FieldUserBundle:User')->findAllActiveUsers();
 
-        return $this->render('admin/index.html.twig', array(
+        return $this->render('@FieldUser/admin/index.html.twig', array(
             'users' => $users,
         ));
     }
@@ -80,7 +80,7 @@ class UserController extends Controller
             return $this->redirectToRoute('admin_user_show', array('id' => $user->getId()));
         }
 
-        return $this->render('admin/edit.html.twig', array(
+        return $this->render('@FieldUser/admin/edit.html.twig', array(
             'form' => $form->createView(),
             'user' => $user,
         ));

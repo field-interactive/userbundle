@@ -29,7 +29,7 @@ class ProfileController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->render('profile/show.html.twig', array(
+        return $this->render('@FieldUser/profile/show.html.twig', array(
             'user' => $user,
         ));
     }
@@ -82,7 +82,7 @@ class ProfileController extends Controller
         }
 
         return $this->render(
-            'profile/edit.html.twig',
+            '@FieldUser/profile/edit.html.twig',
             array('form' => $form->createView())
         );
     }
@@ -129,7 +129,7 @@ class ProfileController extends Controller
         }
 
         return $this->render(
-            'profile/confirm_edit.html.twig',
+            '@FieldUser/profile/confirm_edit.html.twig',
             array('form' => $form->createView())
         );
     }
@@ -173,7 +173,7 @@ class ProfileController extends Controller
         }
 
         return $this->render(
-            'profile/changePassword.html.twig',
+            '@FieldUser/profile/changePassword.html.twig',
             array('form' => $form->createView())
         );
     }
@@ -222,7 +222,7 @@ class ProfileController extends Controller
         }
 
         return $this->render(
-            'profile/delete.html.twig',
+            '@FieldUser/profile/delete.html.twig',
             array('form' => $form->createView())
         );
     }

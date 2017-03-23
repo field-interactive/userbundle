@@ -72,7 +72,7 @@ class ResettingController extends Controller
         }
 
         return $this->render(
-            'resetting/resettingPassword_request.html.twig',
+            '@FieldUser/resetting/resettingPassword_request.html.twig',
             array('form' => $form->createView())
         );
     }
@@ -130,7 +130,7 @@ class ResettingController extends Controller
         }
 
         return $this->render(
-            'resetting/resettingPassword_reset.html.twig',
+            '@FieldUser/resetting/resettingPassword_reset.html.twig',
             array('form' => $form->createView())
         );
     }

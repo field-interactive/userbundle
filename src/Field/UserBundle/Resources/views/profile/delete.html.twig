@@ -1,9 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends '@FieldUser/base.html.twig' %}
 
 {% block body %}
+    Enter your password to delete your personal data.
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <input type="submit" value="Change Password" />
+    <input type="submit" value="Save changes" />
     {{ form_end(form) }}
     <ul>
         <li><a href="{{ path('profile_edit') }}">Back</a></li>

@@ -1,0 +1,19 @@
+{
+  "name": "field/user-bundle",
+  "type": "symfony-bundle",
+  "description": "Symfony FieldUserBundle",
+  "keywords": ["User management"],
+  "homepage": "http://field-interactive.com",
+  "license": "MIT",
+  "require": {
+    "php": "^5.5.9 || ^7.0",
+    "symfony/symfony": "3.2.*",
+    "doctrine/doctrine-migrations-bundle": "^1.2",
+    "doctrine/doctrine-fixtures-bundle": "^2.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Field\\UserBundle\\": ""
+    }
+  }
+}
