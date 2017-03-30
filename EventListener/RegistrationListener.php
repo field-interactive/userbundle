@@ -60,7 +60,7 @@ class RegistrationListener implements EventSubscriberInterface
             ->setTo($user->getEmail(), $user->getName())
             ->setBody(
                 $this->twig->render(
-                    'registration/registration_confirmation.html.twig',
+                    '@FieldUser/registration/registration_confirmation.html.twig',
                     array('user' => $user, 'confirmationUrl' => $confirmationUrl)
                 ),
                 'text/html'

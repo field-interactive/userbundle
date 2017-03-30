@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $users = $em->getRepository('FieldUserBundle:User')->findAllActiveUsers();
+        $users = $em->getRepository($this->container->getParameter('user_class'))->findAllActiveUsers();
 
         return $this->render('@FieldUser/admin/index.html.twig', array(
             'users' => $users,
@@ -40,9 +40,9 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('FieldUserBundle:User')->find($id);
+        $user = $em->getRepository($this->container->getParameter('user_class'))->find($id);
 
-        return $this->render('admin/show.html.twig', array(
+        return $this->render('@FieldUser/admin/show.html.twig', array(
             'user' => $user,
         ));
     }
@@ -56,7 +56,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('FieldUserBundle:User')->find($id);
+        $user = $em->getRepository($this->container->getParameter('user_class'))->find($id);
 
         $form = $this->createForm(ProfileType::class, $user);
         $form->setData($user);
@@ -95,7 +95,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('FieldUserBundle:User')->find($id);
+        $user = $em->getRepository($this->container->getParameter('user_class'))->find($id);
 
         $random = random_bytes(10);
         $plainPassword = substr(md5($random), 0, 8);
@@ -133,7 +133,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('FieldUserBundle:User')->find($id);
+        $user = $em->getRepository($this->container->getParameter('user_class'))->find($id);
 
         $user->setName('anonymous');
         $user->setEmail('anonymous@anonymous-'.md5($user->getEmail().random_bytes(10)).'.com');
@@ -163,7 +163,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('FieldUserBundle:User')->find($id);
+        $user = $em->getRepository($this->container->getParameter('user_class'))->find($id);
         $user->setLocked(true);
 
         $em->persist($user);
@@ -190,7 +190,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('FieldUserBundle:User')->find($id);
+        $user = $em->getRepository($this->container->getParameter('user_class'))->find($id);
         $user->setLocked(false);
 
         $em->persist($user);

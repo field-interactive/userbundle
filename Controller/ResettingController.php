@@ -36,7 +36,7 @@ class ResettingController extends Controller
             $email = $form->getData()['email'];
 
             $user = $this->getDoctrine()
-                ->getRepository('FieldUserBundle:User')
+                ->getRepository($this->container->getParameter('user_class'))
                 ->findOneBy(array('email' => $email));
 
             if (!is_object($user) || !$user instanceof User) {
@@ -88,7 +88,7 @@ class ResettingController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('FieldUserBundle:User')->findOneBy(array('email' => $confirmation[0]));
+        $user = $em->getRepository($this->container->getParameter('user_class'))->findOneBy(array('email' => $confirmation[0]));
 
         if (!is_object($user) || !$user instanceof User) {
             throw new NotFoundHttpException(sprintf('The user does not exist'));

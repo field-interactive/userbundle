@@ -11,10 +11,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="Field\UserBundle\Repository\UserRepository")
+ * @ORM\MappedSuperclass(repositoryClass="Field\UserBundle\Repository\UserRepository")
  * @UniqueEntity("email")
  */
-class User implements AdvancedUserInterface
+abstract class User implements AdvancedUserInterface
 {
     const ROLE_DEFAULT = 'ROLE_USER';
 

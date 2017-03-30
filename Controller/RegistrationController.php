@@ -4,7 +4,6 @@ namespace Field\UserBundle\Controller;
 
 use Field\UserBundle\Event\UserEvent;
 use Field\UserBundle\Form\RegisterType;
-use Field\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +11,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 
@@ -25,7 +25,9 @@ class RegistrationController extends Controller
      */
     public function registerAction(Request $request)
     {
-        $user = new User();
+        $class = $this->container->getParameter('user_class');
+
+        $user = new $class();
         $form = $this->createForm(RegisterType::class, $user);
 
         $form->handleRequest($request);
@@ -66,11 +68,11 @@ class RegistrationController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('FieldUserBundle:User')->findOneBy(array('email' => $confirmation[0]));
+        $user = $em->getRepository($this->container->getParameter('user_class'))->findOneBy(array('email' => $confirmation[0]));
 
         $expireDate = new \DateTime('- 7 days');
 
-        if (!is_object($user) || !$user instanceof User) {
+        if (!is_object($user) || !$user instanceof UserInterface) {
             throw new NotFoundHttpException(sprintf('The user does not exist'));
         } elseif ($user->isEnabled()) {
             throw new AuthenticationServiceException(sprintf('The user is already enabled'));

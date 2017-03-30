@@ -2,9 +2,9 @@
 
 namespace Field\UserBundle\Controller;
 
-use Field\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class DefaultController extends Controller
 {
@@ -15,7 +15,7 @@ class DefaultController extends Controller
     {
         $user = $this->getUser();
 
-        if (!is_object($user) || !$user instanceof User) {
+        if (!is_object($user) || !$user instanceof UserInterface) {
             return $this->redirectToRoute('login');
         } else {
             return $this->redirectToRoute('profile_show');

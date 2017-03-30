@@ -59,7 +59,7 @@ class ResetPasswordListener implements EventSubscriberInterface
             ->setTo($user->getEmail(), $user->getName())
             ->setBody(
                 $this->twig->render(
-                    'resetting/resettingPassword_confirmation.html.twig',
+                    '@FieldUser/resetting/resettingPassword_confirmation.html.twig',
                     array('user' => $user, 'confirmationUrl' => $confirmationUrl)
                 ),
                 'text/html'
