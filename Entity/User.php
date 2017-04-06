@@ -39,7 +39,7 @@ abstract class User implements AdvancedUserInterface
      *
      * @Assert\Length(
      *      min = 6,
-     *      minMessage = "Your password must be at least {{ limit }} characters long."
+     *      minMessage = "error.password_length"
      * )
      *
      * @ORM\Column(name="password", type="string", length=72)
