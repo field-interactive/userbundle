@@ -4,6 +4,7 @@ namespace Field\UserBundle\Form;
 
 use Field\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -15,8 +16,12 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('email', EmailType::class)
+            ->add('name', TextType::class, array(
+                'label_format' => 'label.%name%'
+            ))
+            ->add('email', EmailType::class, array(
+                'label_format' => 'label.%name%'
+            ))
         ;
     }
 

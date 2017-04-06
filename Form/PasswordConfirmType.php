@@ -17,7 +17,7 @@ class PasswordConfirmType extends AbstractType
     {
         $builder
             ->add('password', PasswordType::class, array(
-                'label' => 'Password',
+                'label_format' => 'label.%name%',
                 'mapped' => false,
                 'constraints' => new UserPassword(),
             ))
