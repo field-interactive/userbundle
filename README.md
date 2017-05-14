@@ -189,4 +189,4 @@ Zusammen bilden sie eine Agentur für digitale Markenführung.
 Fehlerberichte oder Verbesserungswünsche
 -----------------------------------------
 
-Fehler und Verbesserungen werden direkt im [GitLab Repository] des Bundles gesammelt und bearbeitet.
+Fehler und Verbesserungen werden direkt im [GitLab Repository](https://gitlab.com/myboom/userbundle/issues) des Bundles gesammelt und bearbeitet.
