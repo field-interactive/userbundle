@@ -2,7 +2,7 @@ FieldUserBundle
 =============
 
 Das FieldUserBundle ergänzt das Symfony Framework um ein datenbankgestütztes Benutzersystem.
-Es bietet ein flexibles Gerüst bestehend aus den Grundfunktionen eines üblichen Benutzersystems und einer Benutzerverwaltung mit Aufgaben wie dem Zurücksetzen des Passworts oder dem Deaktiveren eines Benutzers.
+Es bietet ein flexibles Gerüst bestehend aus den Grundfunktionen eines üblichen Benutzersystems und einer Benutzerverwaltung mit Aufgaben wie dem Zurücksetzen des Passworts oder dem Deaktivieren eines Benutzers.
 
 Folgende Funktionen umfasst das FieldUserBundle:
 
@@ -39,7 +39,7 @@ Composer wird das Bundle selbstständig im Projekt unter dem Verzeichnis vendor/
 
 **Schritt 2: Aktivierung des Bundles**
 
-Für die Aktiverung des Bundles im AppKernel ist folgender Eintrag nötig:
+Für die Aktivierung des Bundles im AppKernel ist folgender Eintrag nötig:
 
 ```
 <?php
