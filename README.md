@@ -1,45 +1,47 @@
 FieldUserBundle
 =============
 
-Das FieldUserBundle ergänzt das Symfony Framework um ein datenbankgestütztes Benutzersystem.
-Es bietet ein flexibles Gerüst bestehend aus den Grundfunktionen eines üblichen Benutzersystems und einer Benutzerverwaltung mit Aufgaben wie dem Zurücksetzen des Passworts oder dem Deaktivieren eines Benutzers.
+The FieldUserBundle extends the Symfony Framework by a database-supported user system.
 
-Folgende Funktionen umfasst das FieldUserBundle:
+It provides a flexible framework consisting of the basic functions of a common user system and user management with tasks such as resetting the password or deactivating a user.
 
-- Registrierung neuer Benutzer
-- Anmeldung bestehender Benutzer
-- Möglichkeit zum Zurücksetzen des Passworts
-- Bearbeitbare Benutzerprofile
-- Rollenhierarchie
-- Zugangsbeschränkte Benutzerverwaltung
-- Datenhaltung über Doctrine ORM in einer MySQL-Datenbank
+The FieldUserBundle includes the following functions:
+
+- Registration of new users
+- Registration of existing users
+- Possibility to reset the password
+- Editable user profiles
+- Role hierarchy
+- Restricted user management
+- Data storage via Doctrine ORM in a MySQL database
 
 Installation
 ------------
 
-Die Installation besteht aus einem schnellen 7-stufigen Prozess:
+The installation consists of a 7-step process:
 
-1.    Das FieldUserBundle mit Composer herunterladen
-2.    Aktivierung des Bundles
-3.    Erstellen einer eigenen Benutzerklasse
-4.    Konfiguration der security.yml
-5.    Konfiguration des FieldUserBundle
-6.    FieldUserBundle-Routing importieren
-7.    Aktualisierung des Datenbankschemas
+1.  Download the FieldUserBundle with Composer
+2.  Activation of the bundle
+3.  Create your own user class
+4.  Configuration of the security.yml
+5.  Configuration of the FieldUserBundle
+6   Import FieldUserBundle routing
+7   Updating the database schema
 
-**Schritt 1: Das FieldUserBundle mit Composer herunterladen**
+**Step 1: Download the Bundle**
 
-Konsolenbefehl zur Installation des Bundles mit Composer:
+Open a command console, enter your project directory and execute:
 
 ```
 $ composer require field/user-bundle "~1.0"
 ```
 
-Composer wird das Bundle selbstständig im Projekt unter dem Verzeichnis vendor/field/user-bundle installieren.
+Composer will install the bundle on its own in the project under the directory vendor/field/user-bundle.
 
-**Schritt 2: Aktivierung des Bundles**
+**Step 2: Enable the Bundle**
 
-Für die Aktivierung des Bundles im AppKernel ist folgender Eintrag nötig:
+Then, enable the bundle by adding it to the list of registered bundles
+in the `app/AppKernel.php` file of your project:
 
 ```
 <?php
@@ -55,13 +57,13 @@ public function registerBundles()
 }
 ```
 
-**Schritt 3: Erstellen einer eigenen Benutzerklasse**
+**Step 3: Create your own user class**
 
-Damit das Bundle die Benutzerdaten in der Datenbank speichern kann, ist es notwendig eine eigene User-Klasse, basierend auf der abstrakten Klasse Field\UserBundle\Entity\User, in Ihrem Projekt zu implementieren.
+In order for the bundle to store the user data in the database, it is necessary to implement its own user class, based on the abstract class `Field\UserBundle\Entity\User`, in your project.
 
-In Ihrer eigenen User-Klasse können Sie den Benutzer um weitere Attribute und Methoden ganz nach Ihren Belieben erweitern.
+In your own user class, you can add additional attributes and methods to the user as you want.
 
-Die Basis-Implementation könnte wie folgt aussehen:
+The basic implementation could look like this:
  
 ```
 <?php
@@ -93,11 +95,11 @@ class User extends BaseUser
 }
 ```
 
-**Schritt 4: Konfiguration der security.yml**
+**Step 4: Configuration of the security.yml**
 
-Um Ihre Symfony Anwendung um die Sicherheitsstandards des FieldUserBundles zu ergänzen, müssen Sie Ihre security.yml in der Projektkonfiguration anpassen.
+To add the security standards of the FieldUserBundles to your Symfony application, you have to adapt your `security.yml` in the project configuration.
 
-Ein Minimal-Beispiel können Sie folgenden Codebeispiel entnehmen:
+A minimal example can be found in the following code example:
 
 ```
 # app/config/security.yml
@@ -136,11 +138,11 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
 ```
 
-**Schritt 5: Konfiguration des FieldUserBundle**
+**Step 5: Configuration of the FieldUserBundle**
 
-Nachdem Sie jetzt Ihre eigene Benutzerklasse angelegt haben und die security.yml angepasst haben, ist es nun an der Zeit Ihrer Projektkonfiguration mitzuteilen, die Benutzerklasse auch zu verwenden.
+Now that you have created your own user class and modified the `security.yml`, it is time to tell your project configuration to use the user class as well.
 
-Dafür genügt folgender Parameter in Ihrer config.yml hinzuzufügen:
+All you need to do is add the following parameter to your `config.yml`:
 
 ```
 # app/config/config.yml
@@ -148,9 +150,9 @@ parameters:
     user_class: 'AppBundle\Entity\User'
 ```
 
-**Schritt 6: FieldUserBundle-Routing importieren**
+**Step 6: Import FieldUserBundle routing**
 
-Um die neu gewonnenen Funktionen in Ihrer Anwendung auch nutzen zu können sollten Sie noch die Routing-Annotations des FieldUserBundles in Ihrer routing.yml importieren.
+In order to be able to use the newly acquired functions in your application, you should import the routing annotations of the FieldUserBundles into your `routing.yml`.
 
 ```
 # app/config/routing.yml
@@ -159,34 +161,24 @@ field_user:
     type:     annotation
 ```
 
-**Schritt 7: Aktualisierung des Datenbankschemas**
+**Step 7: Updating the database schema**
  
-Zuletzt gilt es noch Ihre Datenbank auf den aktuellsten Stand zu bringen und um die neue Benutzer Klasse zu erweitern.
+Finally, you need to update your database to the latest version and extend the new user class.
 
-Dank Doctrine können Sie dies über folgenden Befehl erledigen:
+Thanks to Doctrine you can do this with the following command:
 
 ```
 $ php bin/console doctrine:schema:update --force
 ```
 
-Mit diesem letzten Schritt sollten Sie erfolgreich das FieldUserBundle in Ihrer Anwendung installiert haben.
+With this last step you should have successfully installed the FieldUserBundle in your application.
 
-Lizenz
+License
 -------
 
-Dieses Bundle steht unter der MIT-Lizenz. Die vollständige Lizenz können Sie [hier einsehen](LICENSE).
+This bundle is under the MIT license. The full license can be viewed [here](LICENSE).
 
-Über
+About us
 -----
 
-Das FieldUserBundle ist eine Entwicklung der Field Interactive GmbH.
-
-Die Field Interactive GmbH eint die Digitalagentur Field Digital GmbH und die Kommunikationsagentur Field Communications GmbH.
-
-In interdisziplinären Teams arbeiten über 20 Mitarbeiter und Mitarbeiterinnen an drei Standorten in Dortmund, Brilon und Lünen.
-Zusammen bilden sie eine Agentur für digitale Markenführung.
-
-Fehlerberichte oder Verbesserungswünsche
------------------------------------------
-
-Fehler und Verbesserungen werden direkt im [GitLab Repository](https://gitlab.com/myboom/userbundle/issues) des Bundles gesammelt und bearbeitet.
+We are [Field Interactive](https://www.field-interactive.com/)
