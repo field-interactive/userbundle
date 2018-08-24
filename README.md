@@ -71,7 +71,7 @@ The basic implementation could look like this:
 
 namespace AppBundle\Entity;
 
-use Field\UserBundle\Model\User as BaseUser;
+use Field\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -81,6 +81,8 @@ use Doctrine\ORM\Mapping as ORM;
 class User extends BaseUser
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -90,7 +92,23 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        // Ihre eigene Logik
+        // Your own logic
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }
 ```
@@ -170,6 +188,8 @@ Thanks to Doctrine you can do this with the following command:
 ```
 $ php bin/console doctrine:schema:update --force
 ```
+
+If you use the Symfony 2.x structure in your project, use `app/console` instead of `bin/console` in the commands.
 
 With this last step you should have successfully installed the FieldUserBundle in your application.
 

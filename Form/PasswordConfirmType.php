@@ -2,7 +2,7 @@
 
 namespace Field\UserBundle\Form;
 
-use Field\UserBundle\Entity\User;
+use Field\UserBundle\Model\User;
 use Field\UserBundle\Form\Model\ChangePassword;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

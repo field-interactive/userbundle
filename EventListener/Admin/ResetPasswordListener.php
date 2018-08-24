@@ -2,7 +2,7 @@
 
 namespace Field\UserBundle\EventListener\Admin;
 
-use Field\UserBundle\Entity\User;
+use Field\UserBundle\Model\User;
 use Field\UserBundle\Event\UserEvent;
 use Swift_Mailer;
 use Swift_Message;

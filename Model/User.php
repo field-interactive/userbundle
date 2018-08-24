@@ -1,6 +1,6 @@
 <?php
 
-namespace Field\UserBundle\Entity;
+namespace Field\UserBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;

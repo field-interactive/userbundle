@@ -9,7 +9,7 @@
 namespace Field\UserBundle\Controller;
 
 
-use Field\UserBundle\Entity\User;
+use Field\UserBundle\Model\User;
 use Field\UserBundle\Event\UserEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;

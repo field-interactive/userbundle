@@ -2,7 +2,7 @@
 
 namespace Field\UserBundle\Tests\Entity;
 
-use Field\UserBundle\Entity\User;
+use Field\UserBundle\Model\User;
 
 class UserTest extends \PHPUnit\Framework\TestCase
 {

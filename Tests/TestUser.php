@@ -2,7 +2,7 @@
 
 namespace Field\UserBundle\Tests;
 
-use Field\UserBundle\Entity\User;
+use Field\UserBundle\Model\User;
 
 class TestUser extends User
 {

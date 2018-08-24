@@ -2,7 +2,7 @@
 
 namespace Field\UserBundle\Form;
 
-use Field\UserBundle\Entity\User;
+use Field\UserBundle\Model\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

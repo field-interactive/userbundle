@@ -2,7 +2,7 @@
 
 namespace Field\UserBundle\Controller;
 
-use Field\UserBundle\Entity\User;
+use Field\UserBundle\Model\User;
 use Field\UserBundle\Event\UserEvent;
 use Field\UserBundle\Form\PasswordConfirmType;
 use Field\UserBundle\Form\ProfileType;

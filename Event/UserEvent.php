@@ -2,7 +2,7 @@
 
 namespace Field\UserBundle\Event;
 
-use Field\UserBundle\Entity\User;
+use Field\UserBundle\Model\User;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 
