@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $users = $em->getRepository($this->container->getParameter('user_class'))->findAllActiveUsers();
+        $users = $em->getRepository($this->container->getParameter('user_class'))->findBy(array('deleted' => false));
 
         return $this->render('@FieldUser/admin/index.html.twig', array(
             'users' => $users,
@@ -138,6 +138,7 @@ class UserController extends Controller
         $user->setName('anonymous');
         $user->setEmail('anonymous@anonymous-'.md5($user->getEmail().random_bytes(10)).'.com');
         $user->setLocked(true);
+        $user->setDeleted(true);
 
         $em->persist($user);
         $em->flush();

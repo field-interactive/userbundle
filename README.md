@@ -177,6 +177,9 @@ In order to be able to use the newly acquired functions in your application, you
 field_user:
     resource: "@FieldUserBundle/Controller/"
     type:     annotation
+    
+logout:
+    path:     /logout
 ```
 
 **Step 7: Updating the database schema**

@@ -75,6 +75,13 @@ abstract class User implements AdvancedUserInterface
     protected $locked;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="deleted", type="boolean")
+     */
+    protected $deleted;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="lastLogin", type="datetime", nullable=true)
@@ -120,6 +127,7 @@ abstract class User implements AdvancedUserInterface
     {
         $this->enabled = false;
         $this->locked = false;
+        $this->deleted = false;
         $this->roles = array();
         $this->updated = new \DateTime();
         $this->created = new \DateTime();
@@ -307,6 +315,22 @@ abstract class User implements AdvancedUserInterface
     public function isAccountNonLocked()
     {
         return !$this->locked;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param bool $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
     }
 
     /**
