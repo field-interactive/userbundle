@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="field_user")
  * @ORM\MappedSuperclass(repositoryClass="Field\UserBundle\Repository\UserRepository")
  * @UniqueEntity("email")
  */
@@ -25,14 +25,14 @@ abstract class User implements AdvancedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=128, unique=true)
      */
-    private $email;
+    protected $email;
 
     /**
      * @var string
@@ -44,77 +44,77 @@ abstract class User implements AdvancedUserInterface
      *
      * @ORM\Column(name="password", type="string", length=72)
      */
-    private $password;
+    protected $password;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=128)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var array
      *
      * @ORM\Column(name="roles", type="array")
      */
-    private $roles;
+    protected $roles;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="enabled", type="boolean")
      */
-    private $enabled;
+    protected $enabled;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="locked", type="boolean")
      */
-    private $locked;
+    protected $locked;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="lastLogin", type="datetime", nullable=true)
      */
-    private $lastLogin;
+    protected $lastLogin;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="expiresAt", type="datetime", nullable=true)
      */
-    private $expiresAt;
+    protected $expiresAt;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="credentialsExpireAt", type="datetime", nullable=true)
      */
-    private $credentialsExpireAt;
+    protected $credentialsExpireAt;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="passwordRequestedAt", type="datetime", nullable=true)
      */
-    private $passwordRequestedAt;
+    protected $passwordRequestedAt;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="updated", type="datetime")
      */
-    private $updated;
+    protected $updated;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="created", type="datetime")
      */
-    private $created;
+    protected $created;
 
     public function __construct()
     {
