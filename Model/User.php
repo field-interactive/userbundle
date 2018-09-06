@@ -243,6 +243,53 @@ abstract class User implements AdvancedUserInterface
     }
 
     /**
+     * Adds a bundle of roles to the user
+     *
+     * @param array $roles
+     *
+     * @return $this
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = array();
+
+        foreach ($roles as $role) {
+            $this->addRole($role);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Removes a certain role from the user
+     *
+     * @param $role
+     *
+     * @return $this
+     */
+    public function removeRole($role)
+    {
+        if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
+            unset($this->roles[$key]);
+            $this->roles = array_values($this->roles);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Checks if the user has the certain role
+     *
+     * @param $role
+     *
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        return in_array(strtoupper($role), $this->getRoles(), true);
+    }
+
+    /**
      * Returns the roles or permissions granted to the user for security.
      *
      * @return array
